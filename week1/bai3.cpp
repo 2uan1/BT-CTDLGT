@@ -16,6 +16,24 @@ void selectionSort(int a[], int size)
     }
 }
 
+void insertionSort(int a[], int size)
+{
+    for(int i = 0; i < size; i++)
+    {
+        int j = i;
+        if (j != 0)
+        {
+            while(j > 0 && a[j] < a[j-1])
+            {
+                int tmp = a[j];
+                a[j] = a[j-1];
+                a[j-1] = tmp;
+                j--;
+            }
+        }
+    }
+}
+
 void bubbleSort(int a[], int size)
 {
     for (int i = 0; i < size; i++)
