@@ -49,3 +49,64 @@ void bubbleSort(int a[], int size)
         }
     }
 }
+
+
+void mergeSort(int a[], int start, int end)
+{
+    if (start >= end) return;
+    int mid = start + (end - start) /2;
+    mergeSort(a, start, mid);
+    mergeSort(a, mid+1, end);
+    merge(a, start, end, mid);
+}
+
+void merge(int a[], int start, int end, int mid)
+{
+    int subArrayOne = mid - start + 1;
+    int subArrayTwo = end - mid;
+
+    int* leftArray = new int[subArrayOne];
+    int* rightArray = new int[subArrayTwo];
+
+    for (int i = 0; i < subArrayOne; i++) leftArray[i] = a[start+i];
+    for (int i = 0; i < subArrayTwo; i++) rightArray[i] = a[i+mid+1];
+
+    int indexOfSubArrayOne = 0;
+    int indexOfSubArrayTwo = 0;
+    int indexOfArray = start;
+
+    while (indexOfSubArrayOne < subArrayOne && indexOfSubArrayTwo < subArrayTwo)
+    {
+        if (rightArray[indexOfSubArrayTwo] <= leftArray[indexOfSubArrayOne])
+        {
+            a[indexOfArray] = rightArray[indexOfSubArrayTwo];
+            indexOfSubArrayTwo++;
+        }
+        else if (leftArray[indexOfSubArrayOne] < rightArray[indexOfSubArrayTwo])
+        {
+            a[indexOfArray] = leftArray[indexOfSubArrayOne];
+            indexOfSubArrayOne++;
+        }
+        indexOfArray++;
+    }
+    if (indexOfSubArrayOne < subArrayOne)
+    {
+        while (indexOfSubArrayOne < subArrayOne)
+        {
+            a[indexOfArray] = leftArray[indexOfSubArrayOne];
+            indexOfArray++;
+            indexOfSubArrayOne++;
+        }
+    }
+    else if (indexOfSubArrayTwo < subArrayTwo)
+    {
+        while (indexOfSubArrayTwo < subArrayTwo)
+        {
+            a[indexOfArray] = rightArray[indexOfSubArrayTwo];
+            indexOfSubArrayTwo++;
+            indexOfArray++;
+        }
+    }
+    delete[] rightArray;
+    delete[] leftArray;
+}
