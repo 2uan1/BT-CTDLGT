@@ -50,6 +50,28 @@ void bubbleSort(int a[], int size)
     }
 }
 
+void quickSort(int arr[], int left, int right){
+
+    if (left < right){
+        int pi = partition(arr, left, right);
+        quickSort(arr, left, pi- 1);
+        quickSort(arr, pi + 1, right);
+    }
+}
+
+int partition(int arr[], int left, int right){
+    int i = left, j = left;
+    int pivot = arr[right];
+    while (j < right){
+        while (arr[i] < pivot) i++;
+        j = i;
+        while (arr[j] > pivot) j++;
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+    return i;
+}
 
 void mergeSort(int a[], int start, int end)
 {
