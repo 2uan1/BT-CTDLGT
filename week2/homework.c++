@@ -50,9 +50,6 @@ public:
                 if (cur == nullptr) break;
                 cur = cur->next;
             }
-//            cur->next = new Node(data);
-//            cur->next->next = nullptr;
-//            cur->next->prev = cur;
             Node* newNode = new Node(data);
             newNode->next = cur->next;
             newNode->prev = cur;
@@ -122,29 +119,11 @@ public:
 
     void readList(int array[], int size)
     {
-//        Node* cur = head;
-//        cur = new Node(array[0]);
-//        cur->prev = nullptr;
-//        cur->next = nullptr;
         this->insert(0, array[0]);
         for (int i = 1; i < size; i++)
         {
             this->insert(i, array[i]);
-//            cout << i << endl;
-//            Node* newNode = new Node(array[i]);
-//            newNode->next = nullptr;
-//            newNode->prev = cur;
-//            cur->next = newNode;
-//            if (cur != nullptr) cur = cur->next;
-////            cout << cur->data;
-//            this->printList();
         }
-//        cur = head;
-//        while (cur)
-//        {
-//            cout << cur->data << endl;
-//            cur = cur->next;
-//        }
     }
 
     void count_triplets()
@@ -154,10 +133,6 @@ public:
         cur = cur->next;
         while(cur->next != nullptr)
         {
-            cout << "cur data = " << cur->data << endl;
-            cout << "next data = " << cur->next->data << endl;
-            cout << "prev data = " << cur->prev->data << endl;
-            cout << endl;
             if (cur->data + cur->prev->data + cur->next->data == 0)
             {
                 count++;
@@ -229,30 +204,65 @@ public:
     }
 };
 
-int main()
-{
-//    int n;
-//    cin >> n;
-//    int A[n];
-//    for (int i = 0; i < n; i++)
-//    {
-//        cin >> A[i];
-//    }
-//    pairCounter(A, n);
-    LinkedList* el = new LinkedList();
-    int n;
-    cin >> n;
-    int a[n];
-    for (int i = 0; i < n; i++)
+class Stack{
+public:
+    Node* head;
+    Node* top;
+
+    void push(int x)
     {
-        cin >> a[i];
+        if (top == nullptr)
+        {
+            top = new Node(x);
+            top->next = nullptr;
+            top->prev = nullptr;
+            head = top;
+        }
+        else
+        {
+            Node* newNode = new Node(x);
+            newNode->next = nullptr;
+            newNode->prev = top;
+
+            top->next = newNode;
+
+            top = top->next;
+        }
     }
-//    for (int i = 0; i < n; i++)
-//    {
-//        cout << a[i];
-//    }
-    el->readList(a, n);
-    el->printList();
-    el->count_triplets();
-//    cout << el->head->data;
-}
+
+    void pop()
+    {
+        top = top->prev;
+    }
+
+    void print()
+    {
+        Node* cur = head;
+        while (cur != nullptr)
+        {
+            cout << cur->data << "->";
+            cur = cur->next;
+        }
+    }
+
+    void readCommand()
+    {
+        int commandCount;
+        cin >> commandCount;
+        for (int i = 0; i < commandCount; i++)
+        {
+            string command;
+            cin >> command;
+            if (command == "push")
+            {
+                int number;
+                cin >> number;
+                this->push(number);
+            }
+            else if (command == "pop")
+            {
+                this->pop();
+            }
+        }
+    }
+};
