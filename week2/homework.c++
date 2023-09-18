@@ -149,7 +149,22 @@ public:
 
     void count_triplets()
     {
-        
+        int count = 0;
+        Node* cur = head;
+        cur = cur->next;
+        while(cur->next != nullptr)
+        {
+            cout << "cur data = " << cur->data << endl;
+            cout << "next data = " << cur->next->data << endl;
+            cout << "prev data = " << cur->prev->data << endl;
+            cout << endl;
+            if (cur->data + cur->prev->data + cur->next->data == 0)
+            {
+                count++;
+            }
+            cur = cur->next;
+        }
+        cout << "triplet count: " << count;
     }
 };
 
