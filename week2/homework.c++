@@ -168,6 +168,67 @@ public:
     }
 };
 
+class Queue{
+public:
+    Node* head;
+    Node* tail;
+
+    void enqueue(int x)
+    {
+        if (head == nullptr)
+        {
+            head = new Node(x);
+            tail = head;
+        }
+        else
+        {
+            Node* newNode = new Node(x);
+            newNode->next = nullptr;
+            newNode->prev = tail;
+
+            tail->next = newNode;
+
+            tail = tail->next;
+        }
+    }
+
+    void dequeue()
+    {
+        head = head->next;
+    }
+
+    void printQueue()
+    {
+        Node* cur = head;
+        while (cur != nullptr)
+        {
+            cout << cur->data << "->";
+            cur = cur->next;
+        }
+    }
+
+    void readCommand()
+    {
+        int commandCount;
+        cin >> commandCount;
+        for (int i = 0; i < commandCount; i++)
+        {
+            string command;
+            cin >> command;
+            if (command == "enqueue")
+            {
+                int number;
+                cin >> number;
+                this->enqueue(number);
+            }
+            else if (command == "dequeue")
+            {
+                this->dequeue();
+            }
+        }
+    }
+};
+
 int main()
 {
 //    int n;
