@@ -1,46 +1,61 @@
 #include <iostream>
-
+#include <vector>
 using namespace std;
 
-class Node{
-public:
+// Một Node trong cây
+class Node {
+    // Chứa thông tin của Node đó
     int data;
-    Node* firstChild;
-    Node* secondChild;
-    Node* thirdChild;
+    // Con trỏ đến Node cha
+    Node* fatherNode;
 
-    Node()
-    {
-        data = 1;
-        firstChild = nullptr;
-        secondChild = nullptr;
-        thirdChild = nullptr;
+    // Con trỏ đến các Node con
+    // Đây là một danh sách liên kết (con trỏ đến con đầu tiên)
+    // Thứ tự ưu tiên từ nhỏ đến lớn (con nhỏ được duyệt trước)
+    vector<Node> children;
+
+public:
+    Node() {
+        fatherNode = nullptr;
+        data = 0;
     }
 
     Node(int data_)
     {
         data = data_;
-        firstChild = nullptr;
-        secondChild = nullptr;
-        thirdChild = nullptr;
+        fatherNode = nullptr;
     }
+
+    void setData(int data_)
+    {
+        data = data_;
+    }
+
+    int getData()
+    {
+        return data;
+    }
+
+    vector<Node> getChildren()
+    {
+        return children;
+    }
+
+    void push(Node node)
+    {
+        children.push_back(node);
+    }
+    // Các hàm khởi tạo khác nếu cần thiết
 
     friend class Tree;
 };
 
-class Tree{
-private:
-
-public:
+// Lớp Cây
+class Tree {
+    // Chứa một Node gốc
     Node* root;
-
-    Tree(Node* node)
-    {
-        root = node;
-    }
-
-    Tree()
-    {
+public:
+    Tree() {
         root = new Node();
     }
 
@@ -49,131 +64,111 @@ public:
         root = new Node(data);
     }
 
-    bool insert(int father, int data_)
+    Tree(Node* node)
     {
-        if (!contains(father))
-        {
-            cout << "fatherNode = " << findNode(father) << endl;
-            cout << "tree doesnt contain " << father << endl;
-//            cout << "unable to insert " << father << " " << data_ << endl;
-            return false;
-        }
-        Node* fatherNode = findNode(father);
-        if (fatherNode->firstChild == nullptr)
-        {
-            fatherNode->firstChild = new Node(data_);
-            return true;
-        }
-        else if (fatherNode->secondChild == nullptr)
-        {
-            fatherNode->secondChild = new Node(data_);
-            return true;
-        }
-        else if (fatherNode->thirdChild == nullptr)
-        {
-            fatherNode->thirdChild = new Node(data_);
-            return true;
-        }
-        if (fatherNode->firstChild->data == data_ || fatherNode->secondChild->data == data_ || fatherNode->thirdChild->data == data_) return false;
+        root = node;
+    }
+    // Các hàm khởi tạo khác nếu cần thiết
+
+    // Hàm thêm một Node vào cây
+    // Hàm trả về false nếu Node cha không tồn tại trên cây
+    // hoặc Node father đã có con là data
+    bool insert(int father, int data)
+    {
+        Node* node = findNode(root, father);
+        Node* newNode = new Node(data);
+        root->push(*newNode);
     }
 
-    int remove(int data_)
+    // Hàm xoá một Node trên cây
+    // Nếu không phải Node lá xoá Node đó và toàn bộ các Node con của nó
+    // Hàm trả về số lượng Node đã xoá
+    // Nếu Node data không tồn tại trả về 0 (zero)
+    int remove(int data)
     {
-
+        Node* node = findNode(root, data);
+        delete node;
     }
 
+
+    Node* findNode(Node* father, int value)
+    {
+        if (father)
+        {
+            if (root->getData() == value) return root;
+            for (int i = 0; i < root->getChildren().size(); i++)
+            {
+                findNode(root->getChildren().at(i), value);
+            }
+        }
+    }
+
+    // Hàm in ra các Node theo thứ tự preorder
     void preorder()
     {
-        if (root == nullptr) return;
-        cout << root->data << "     ";
-//        return;
-
-        if (root->firstChild != nullptr)
+        cout << root->data << " ";
+        for(int i = 0; i < root->getChildren().size(); i++)
         {
-            Tree* firstBranch = new Tree(root->firstChild);
-            firstBranch->preorder();
-        }
-
-        if (root->secondChild != nullptr)
-        {
-            Tree* secondBranch = new Tree(root->secondChild);
-            secondBranch->preorder();
-        }
-
-        if (root->thirdChild != nullptr)
-        {
-            Tree* thirdBranch = new Tree(root->thirdChild);
-            thirdBranch->preorder();
+            Tree* childBranch = new Tree(root->getChildren().at(i));
+            childBranch->preorder();
         }
     }
 
+    // Hàm in ra các Node theo thứ tự postorder
     void postorder()
     {
-
-    }
-
-    void inorder()
-    {
-
-    }
-
-    Node* findNode(int data_)
-    {
-        if (root->data == data_)
+        for(int i = 0; i < root->getChildren().size(); i++)
         {
-            return root;
+            Tree* childBranch = new Tree(root->getChildren().at(i));
+            childBranch->preorder();
         }
-        else
-        {
-            if (root->firstChild != nullptr)
-            {
-                Tree* firstChildBranch = new Tree(root->firstChild);
-                firstChildBranch->findNode(data_);
-            }
-            if (root->secondChild != nullptr)
-            {
-                Tree* secondChildBranch = new Tree(root->secondChild);
-                secondChildBranch->findNode(data_);
-            }
-            if (root->thirdChild != nullptr)
-            {
-                Tree* thirdChildBranch = new Tree(root->thirdChild);
-                thirdChildBranch->findNode(data_);
-            }
-        }
+        cout << root->data << " ";
     }
 
-    bool contains(int value)
+    // Hàm kiểm tra cây nhị phân
+    bool isBinaryTree()
     {
-        Node* tmp = findNode(value);
-        if (tmp == nullptr) return false;
-        else return true;
+        if (root->getChildren().size > 2) return false;
+        for (int i = 0; i < root->getChildren().size(); i++)
+        {
+            Tree* childBranch = new Tree(root->getChildren().at(i));
+            childBranch->isBinaryTree();
+        }
+        return true;
     }
+
+    // Hàm kiểm tra cây tìm kiếm nhị phân
+    bool isBinarySearchTree();
+
+    // Hàm kiểm tra cây max-heap
+    bool isMaxHeapTree();
+
+    // Hàm in ra các Node theo thứ tự inorder nếu là cây nhị phân
+    void inorder();
+
+    // Hàm trả về độ cao của cây
+    int height();
+
+    // Hàm trả về độ sâu của một Node
+    int depth(int data);
+
+    // Hàm đếm số lượng lá
+    int numOfLeaves();
+
+    // Hàm trả về Node có giá trị lớn nhất
+    int findMax();
+
+    // Hàm trả về Node có nhiều con nhất
+    int findMaxChild();
 };
 
-int main()
-{
-    int n, m;// # of nodes and of edges
-    cin >> n >> m;
-    Tree* dumbTree = new Tree();
-//    dumbTree->root->firstChild = new Node(2);
-//    dumbTree->root->secondChild= new Node(4);
-//    dumbTree->root->thirdChild = new Node(7);
-//    dumbTree->root->firstChild->firstChild = new Node(3);
-//    dumbTree->root->firstChild->secondChild = new Node(5);
-//    dumbTree->root->secondChild->firstChild = new Node(6);
-//    dumbTree->root->thirdChild->firstChild = new Node(9);
-//    dumbTree->root->thirdChild->secondChild = new Node(12);
-//    dumbTree->preorder();
-    for (int i = 0; i < m; i++)
-    {
-        int fatherData, childData;
-        cin >> fatherData >> childData;
-        if(!dumbTree->insert(fatherData, childData))
-        {
-            cout << "unable to insert " << fatherData << " " << childData << endl;
-        }
-    }
-    cout << dumbTree->root->secondChild->secondChild << "    ssss         ";
-    dumbTree->preorder();
+int main(int argc, char const *argv[]) {
+    // Tạo ra một cây ngẫu nhiên có tối thiểu 30 Node
+    // Test thử các hàm của lớp cây
+
+
+    // Tạo ra một cây thoả mãn tính chất là Binary Search Tree và test lại
+
+    // Tạo ra một cây thoả mãn tính chất là Max Heap Tree và test lại
+    return 0;
 }
