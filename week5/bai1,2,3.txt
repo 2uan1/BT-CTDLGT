@@ -1,5 +1,16 @@
 Ex1:
-Two deriable properties of hash function are
-
+Two deriable properties of hash function are that it should be quick to compute and it should minimize collisions.
 
 Ex2:
+a.|20|  |  |16|44|94|12|  |13|  |  |
+             5 88 39 23
+               11
+
+b.|39|20| 5|16|44|88|12|23|13|94|11|
+
+Ex3:
+a.|  |16|  | 1|36| 3|  |  |23|  | 8|  |  |11|  |  |  |
+            18    20
+            35
+
+b.|  |16|  | 1|18| 3|35|36|23|20| 8|  |  |11|  |  |  |
