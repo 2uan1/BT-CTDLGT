@@ -1,0 +1,6 @@
+Để tìm số thành phần liên thông của một đỉnh v cho trước, ta sử dụng Depth First Search trên đỉnh đó, chứa thông tin về các đỉnh khác có thể
+đến được trong một mảng bool kích thước bằng số đỉnh đồ thị
+
+Để tính các thành phần liên thông của một đồ thị có hướng, ta có thể sử dụng thuật toán trên nhưng với tất cả mọi đỉnh thay vì chỉ với đỉnh v,
+sau đó sử dụng mảng bool 2 chiều để chứa thông tin về đỉnh nào có thể đến được đỉnh nào, từ đó có thể tính được số thành phần liên thông
+mạnh và yếu
