@@ -1,0 +1,4 @@
+Đồ thị 1 không có chu trình Euler lẫn chu trình Hamilton
+Đồ thị 2 có chu trình Euler nhưng không có chu trình Hamilton
+Đồ thị 3 không có chu trình Euler lẫn chu trình Hamilton
+Đồ thị 4 không có chu trình Euler lẫn chu trình Hamilton

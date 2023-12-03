@@ -1,0 +1,1 @@
+Để tính được số đồ thị vô hướng khác nhau có V đỉnh và E cạnh, ta chọn E cặp đỉnh từ V đỉnh, khi đó sẽ có C(E,V) đồ thị vô hướng khác nhau

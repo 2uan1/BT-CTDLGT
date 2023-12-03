@@ -1,0 +1,16 @@
+Chứng minh bằng phản chứng:
+Giả sử đồ thị G không có điểm articulation nhưng không phải là đồ thị biconnected. Điều này có nghĩa là có ít nhất một cặp đỉnh 
+không được nối bởi hai đường đi không giao nhau
+
+Chọn một cặp đỉnh s và t mà không có đường đi nào nối chúng hoặc chỉ có một đường đi duy nhất nối chúng
+
+Nếu không có đường đi nào nối s và t, đồ thị không liên thông, điều này là không chấp nhận vì đề bài yêu cầu đồ thị liên thông
+
+Nếu chỉ có một đường đi duy nhất nối s và t, đồ thị không biconnected vì khi loại bỏ đường đi đó, đồ thị sẽ không còn liên thông
+
+Bây giờ, xem xét đường đi duy nhất giữa s và t. Vì G không có điểm articulation, nghĩa là khi loại bỏ bất kỳ đỉnh nào trên đường đi đó,
+đồ thị vẫn giữ tính liên thông. Điều này có nghĩa là không có đỉnh nào trên đường đi giữa s và t có thể làm cho đồ thị mất tính liên thông
+
+Do đó, chúng ta có thể xây dựng hai đường đi không giao nhau giữa s và t bằng cách lựa chọn một đỉnh bất kỳ trên đường đi 
+và sử dụng nó để tạo ra đường đi thay thế. Điều này phản chứng điều phải chứng minh, và do đó, đồ thị không thể không phải 
+là biconnected mà không có điểm articulation

@@ -1,0 +1,4 @@
+Giả sử G là một đồ thị bipartite với hai tập đỉnh U và V, và các cạnh chỉ được nối giữa hai tập này
+Để là một chu trình tức là bắt đầu ở tập nào sẽ phải quay lại tập đó, mỗi lần đi qua tập đối diện và quay lại sẽ cần 2 cạnh hay 2 lần di chuyển
+nên để có thể là chu trình trong đồ thị bipartite thì cần phải có số cạnh chẵn mới qua lại được
+Nếu có cạnh lẻ thì đồ thị sẽ có chu trình dạng u1, v1, u2, v2, đồ thị bắt đầu tập U nhưng kết thúc ở tập V nên không tạo nên chu trình được
