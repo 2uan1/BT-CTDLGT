@@ -1,0 +1,11 @@
+Để chứng minh rằng có tất cả 2^(V^2) đồ thị có hướng không chứa cạnh song song trên V đỉnh, ta sẽ sử dụng phương pháp đối ngẫu
+
+Xem xét một đồ thị có hướng G trên V đỉnh mà không chứa cạnh song song. Mỗi cạnh trong G có thể có hai hướng: 
+theo chiều từ đỉnh u đến v hoặc theo chiều từ v đến u. Do đó, mỗi cạnh có 2 cách lựa chọn hướng.
+
+Vì không có cạnh song song, nghĩa là không có cặp cạnh nào có cùng đỉnh đầu hoặc đỉnh cuối, nên tổng số cách lựa chọn hướng cho 
+các cạnh trong G là 2^(số cạnh G)
+
+Mỗi đỉnh trong G có thể là đỉnh đầu hoặc đỉnh cuối của một cạnh, nên số cạnh của 
+G là tối đa V^2 (tất cả các cạnh đều có thể kết nối tất cả các cặp đỉnh)
+Do đó, tổng số đồ thị có hướng không chứa cạnh song song trên V đỉnh là 2^(V^2).

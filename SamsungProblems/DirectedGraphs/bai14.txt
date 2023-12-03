@@ -1,0 +1,6 @@
+Mỗi đỉnh cần ít nhất một cạnh đi ra và một cạnh đi vào để tạo ra một chu trình, do đó, có 2^V cách để chọn hướng cạnh nối cho mỗi đỉnh
+
+Tổng số đồ thị có hướng phi chu trình chứa V đỉnh có thể được tính bằng cách nhân số lượng cách chọn hướng cạnh cho mỗi đỉnh:
+    2^V * 2^V * ... * 2^V = (2^V)^V = 2^(V^2)
+
+Do đó, có 2^(V^2) đồ thị có hướng phi chu trình chứa V đỉnh trong đó đồ thị phải đi qua tất cả V đỉnh
